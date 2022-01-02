@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/Desktop/python" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/docker integration with jenkins sample" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/git/repository" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/terraform/terraform-code" vcs="Git" />
+  </component>
+</project>
