@@ -1,4 +1,4 @@
-FROM openjdk:16-alpine3.13
+FROM openjdk
 RUN apt-get update -y; \
     apt-get install -y 
 EXPOSE 8080
