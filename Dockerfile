@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM openjdk
 RUN apt-get update -y; \
     apt-get install -y 
 EXPOSE 8080
