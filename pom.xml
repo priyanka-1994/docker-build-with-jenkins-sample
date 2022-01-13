@@ -27,6 +27,16 @@
          <executions>
           <execution>
              <phase>package</phase>
+             <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>com.github.jsimone</groupId>
+                  <artifactId>webapp</artifactId>
+                  <version>8.5.11.3</version>
+                  <destFileName>webapp.jar</destFileName>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
            </execution>
           </executions>
          </plugin>
