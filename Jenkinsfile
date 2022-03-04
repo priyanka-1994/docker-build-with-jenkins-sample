@@ -1,8 +1,8 @@
-pipeline {
+     pipeline {
      agent any
      tools{
-          jdk 'java8'
-          maven 'maven3'
+          jdk 'java 8'
+          maven 'maven 3'
      }
      stages{
         stage('Cloning git'){
@@ -14,7 +14,7 @@ pipeline {
        
         stage('Build Docker Image'){
             steps{
-               sh "docker build . -t prikale/docker-build-with-jenkins-sample:1.0.0"
+                 sh "docker build . -t prikale/docker-build-with-jenkins-sample:${BUILD_ID}.0.0"
              }
            }
         stage('Push Docker Image'){
@@ -23,13 +23,13 @@ pipeline {
                    withCredentials([string(credentialsId: 'DockerCredentials', variable: 'DockerHubPwd')]) {
                    sh "docker login -u prikale -p ${DockerHubPwd}"
                        }
-                sh 'docker push prikale/docker-build-with-jenkins-sample:1.0.0'
+                     sh 'docker push prikale/docker-build-with-jenkins-sample:${BUILD_ID}.0.0'
                          }
                     }
                 }
         stage('Docker run Container'){
             steps{
-                sh 'docker run -d -p 3000:8080 --name myjenkinsapp prikale/docker-build-with-jenkins-sample:1.0.0'
+                sh 'docker run -d -p 3000:8080 --name myjenkinsapp prikale/docker-build-with-jenkins-sample:${BUILD_ID}.0.0'
             }
         }
     }
