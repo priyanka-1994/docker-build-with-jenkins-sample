@@ -1,10 +1,10 @@
 # docker-build-with-jenkins-sample
 
-prerequsite:
+Prerequisite:
 1.Jenkins server on ubuntu
 
-Insatllation:
+Installation:
 1.jenkins.war 
 2.apache tomcat
-3.java install
+3.java
 4.
