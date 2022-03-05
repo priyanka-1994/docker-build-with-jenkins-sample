@@ -1,2 +1,10 @@
 # docker-build-with-jenkins-sample
-Building and integrating image in the Dockerhub through jenkins..
+
+prerequsite:
+1.Jenkins server on ubuntu
+
+Insatllation:
+1.jenkins.war 
+2.apache tomcat
+3.java install
+4.
