@@ -1,5 +1,7 @@
 # docker-build-with-jenkins-sample
 
+# This project will build image and will push into the DockerHub Registry.
+
 prerequisite:
 Jenkins server Ubuntu server Up and running.
 SonarScanner server Up and running.
