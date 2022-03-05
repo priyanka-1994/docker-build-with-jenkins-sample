@@ -1,0 +1,7 @@
+---
+- hosts: all
+  tasks:
+    - name: pull an image
+      docker_image:
+       name: prikale/docker-build-with-jenkins-sample:${BUILD_ID}.0.0'
+       source: pull
