@@ -21,7 +21,9 @@
             } 
         stage('Build Docker Image'){
             steps{
-                 sh "docker build . -t prikale/docker-build-with-jenkins-sample:${BUILD_ID}.0.0"
+                 sh 'docker image build -t prikale/$JOB_NAME:v1.$BUILD_ID .'
+                 sh 'docker image build tag $JOB_NAME:v1.$BUILD_ID prikale/$JOB_NAME:v1.$BUILD_ID'
+                 sh 'docker image build tag $JOB_NAME:v1.$BUILD_ID prikale/$JOB_NAME:latest'
              }
            }
         stage('Push Docker Image'){
@@ -29,21 +31,30 @@
                 script{
                    withCredentials([string(credentialsId: 'DockerCredentials', variable: 'DockerHubPwd')]) {
                    sh "docker login -u prikale -p ${DockerHubPwd}"
-                       }
-                     sh 'docker push prikale/docker-build-with-jenkins-sample:${BUILD_ID}.0.0'
-                }
-            }
-        }
-    //  stage('Docker run Container'){
-    //      steps{
-    //          script{
-    //              def dockerRun = "docker run -d -p 3000:8080 --name myjenkinsapp prikale/docker-build-with-jenkins-sample:${BUILD_ID}.0.0"
-    //              sshagent(['jenkins-creds']) {
-    //                 sh "ssh -o StrictHostKeyChecking=no root@3.86.59.145 ${dockerRun}"   
-    //                 }    
-    //         }
-    //     }
-    // }
+                   sh 'docker image push prikale/$JOB_NAME:v1.$BUILD_ID'
+                   sh 'docker image push prikale/$JOB_NAME:latest'
+                   sh 'docker image rm $JOB_NAME:v1.$BUILD_ID prikale/$JOB_NAME:v1.$BUILD_ID prikale/$JOB_NAME:latest'
+                        }
+                    }
+               }
+         }
+       stage('Docker run Container'){
+           steps{
+               script{
+                   def dockerRun = 'docker run -d -p 3000:80 --name myjenkinsapp prikale/JOB_NAME'
+                   def docker_rmc_container = 'docker rm -f myjenkinsapp'
+                   def docker_rmi = 'docker rmi -f prikale/JOB_NAME'
+                   sshagent(['jenkins-creds']) {
+                         
+                    # if error comes /var/run/sock ,then change permissions(chmod 777) on docker server. 
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@3.86.59.145 ${docker_rmc_container}" 
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@3.86.59.145 ${docker_rmi}" 
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@3.86.59.145 ${dockerRun}" 
+                      
+                }    
+             }
+         }
+     }
         stage ('SonarQube'){
             environment {									        
                SCANNER_HOME = tool 'Sonar-Qube-Scanner'
